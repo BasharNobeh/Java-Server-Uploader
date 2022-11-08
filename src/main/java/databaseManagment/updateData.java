@@ -15,7 +15,7 @@ public class updateData {
 					   prepareStatement("update server "
 					   		+ "set start_deploy=1 "
 					   		+ "from server s inner join nginx "
-					   		+ "on s.serverID=nginx.FK_serverID where nginx.nginx_server=0"
+					   		+ "on s.serverID=nginx.FK_serverID where nginx.nginx_server=1"
 					   		+ "and s.serverID=?");
 			stm.setInt(1, id);
 			int result=stm.executeUpdate();
@@ -40,7 +40,7 @@ public class updateData {
 					 prepareStatement("update server "
 						   		+ "set start_deploy=0 "
 						   		+ "from server s inner join nginx "
-						   		+ "on s.serverID=nginx.FK_serverID where nginx.nginx_server=0"
+						   		+ "on s.serverID=nginx.FK_serverID where nginx.nginx_server=1"
 						   		+ "and s.serverID=?");
 			stm.setInt(1, id);
 			int result=stm.executeUpdate();

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import databaseManagment.CurrentTimeTracker;
+
 public class NginxCommandsExecute {
 	
     public static  void startNginx(String nginxLocation,String nginxProcessName) throws IOException, InterruptedException {
@@ -18,7 +20,7 @@ public class NginxCommandsExecute {
 
 		
 		} catch (IOException e) {
-			System.out.println("error command , can't start nginx");
+			System.out.println(CurrentTimeTracker.GetCurrentTime() +" error command , can't start nginx");
 		}
 		
 	
@@ -40,7 +42,7 @@ public class NginxCommandsExecute {
 			
 		
 		} catch (IOException e) {
-			System.out.print("error command.");
+			System.out.print(CurrentTimeTracker.GetCurrentTime() +" error command.");
 		}
 		
 	
@@ -60,7 +62,7 @@ public class NginxCommandsExecute {
 				}			
 		
 		} catch (IOException e) {
-			System.out.print("error command.");
+			System.out.print(CurrentTimeTracker.GetCurrentTime() +" error command.");
 		}
 		
 	

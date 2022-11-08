@@ -5,8 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import DataBaseConnection.DataBaseConnection;
-
-
+import classes.DevelopmentDetails;
 import classes.ServerDetails;
 
 public class getData {
@@ -26,7 +25,7 @@ public class getData {
 	    
 	     data.add(new ServerDetails(
 	     result.getInt(1),
- 	     result.getBoolean(2),
+ 	     result.getInt(2),
  	     result.getString(3),
  	     result.getBoolean(4),
          result.getInt(5),
@@ -53,7 +52,7 @@ public class getData {
 	   if(result.next()) {
 	return new ServerDetails(
 		     result.getInt(1),
-	 	     result.getBoolean(2),
+	 	     result.getInt(2),
 	 	     result.getString(3),
 	 	     result.getBoolean(4),
 	         result.getInt(5),
@@ -75,14 +74,13 @@ public class getData {
 			   prepareStatement("select serverID,start_deploy,tomcat_path,status,"
 			   		+ "nginxID,nginx_server,nginx_path,nginx_conf_path,nginx_down_query,"
 			   		+ "nginx_process_name,nginx_reload_server,nginx_min,nginx_max from server"
-	   		+ " Inner Join nginx on nginx.FK_serverID=server.serverID where nginx.nginx_server=0"
-	   		+ "and server.serverID=?");
+	   		+ " Inner Join nginx on nginx.FK_serverID=server.serverID where server.serverID=?");
 	          stm.setInt(1, serverID);
 	   ResultSet result=stm.executeQuery();
 	   if(result.next()) {
 	return new ServerDetails(
 		     result.getInt(1),
-	 	     result.getBoolean(2),
+	 	     result.getInt(2),
 	 	     result.getString(3),
 	 	     result.getBoolean(4),
 	         result.getInt(5),
@@ -98,7 +96,19 @@ public class getData {
 	   else {
 		   return null;
 	   }
+    }
+    public static DevelopmentDetails GetDevelopmentTableData() throws SQLException{
+ 	   PreparedStatement stm=DataBaseConnection.DataBaseConnect().
+ 			   prepareStatement("select * from development ");
+ 	   ResultSet result=stm.executeQuery();
+ 	   if(result.next()) {
+ 	return new DevelopmentDetails(
+ 		     result.getInt(1),
+ 	 	     result.getInt(2));
+ 	 	   
+ 	   } else {
+ 		   return null;
+
 }
-
-
+    }
 }
