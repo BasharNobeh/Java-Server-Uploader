@@ -6,6 +6,7 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import databaseManagment.CurrentTimeTracker;
 import fileContentMethods.WarFileDirectory;
 
 public class folderDirectory {
@@ -23,7 +24,7 @@ public class folderDirectory {
 		// check if there folder have same name like war file
 		if (Files.exists(WarFolder)) { // folder with same war name exist
 			// wait 30 seconds to check the folder
-			System.out.println("folder is still there");
+			System.out.println(CurrentTimeTracker.GetCurrentTime() +" folder is still there");
 
 			long startTime = System.currentTimeMillis();
 
@@ -31,10 +32,10 @@ public class folderDirectory {
 
 				Thread.sleep(3000);
 
-				System.out.println("checking if folder still there");
+				System.out.println(CurrentTimeTracker.GetCurrentTime() +" checking if folder still there");
 
 				if (!(Files.exists(WarFolder))) {
-					System.out.println("folder is gone");
+					System.out.println(CurrentTimeTracker.GetCurrentTime() +" folder is gone");
 					file.FolderIsDeleted = true;
 				}
 
@@ -46,7 +47,7 @@ public class folderDirectory {
 			file.FolderIsDeleted = true;
 		}
 		}else {
-			System.out.print("can't check folder ,because warfile is null");
+			System.out.print(CurrentTimeTracker.GetCurrentTime() +" can't check folder ,because warfile is null");
 		}
 
 	}
@@ -61,11 +62,11 @@ public class folderDirectory {
 		if (Files.exists(WarFolder)) {
 			deleteDirectoryRecursion(WarFolder);
 		if (Files.exists(WarFolder)) {
-            System.out.println("folder is not deleted");
+            System.out.println(CurrentTimeTracker.GetCurrentTime() +" folder is not deleted");
             file.FolderIsDeleted=false;
 		}
 		else {
-			System.out.println("folder is deleted");
+			System.out.println(CurrentTimeTracker.GetCurrentTime() +" folder is deleted");
             file.FolderIsDeleted=true;
 		}
 		}
@@ -73,7 +74,7 @@ public class folderDirectory {
             file.FolderIsDeleted=true;
 		}
 		}else {
-			System.out.print("can't check folder ,because warfile is null");
+			System.out.print(CurrentTimeTracker.GetCurrentTime() +" can't check folder ,because warfile is null");
 
 		}
 	}

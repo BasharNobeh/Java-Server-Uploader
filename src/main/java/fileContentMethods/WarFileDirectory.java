@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 import FolderMangmentMethod.folderDirectory;
+import databaseManagment.CurrentTimeTracker;
 
 public class WarFileDirectory {
 	public boolean FolderIsDeleted = false;
@@ -34,17 +35,17 @@ public class WarFileDirectory {
 					// go to webapps and check if there is a file have the same name
 					if (file.getName().equals(warFile.getName())) {
 
-						System.out.println("we found another file have same name");
+						System.out.println(CurrentTimeTracker.GetCurrentTime() +" we found another file have same name");
 						file.delete();
 						// checking if the file deleted completely
 						if (file.exists()) { // can't delete war file ,that exist before in webapp folder
 							
-							System.out.println("we can't delete the file");
+							System.out.println(CurrentTimeTracker.GetCurrentTime() + " we can't delete the file");
 							
 							noWarFileFound = false;
 
 						} else { 
-							System.out.println("we delete the file");
+							System.out.println(CurrentTimeTracker.GetCurrentTime() +" we delete the file");
 
 							// check if there a folder with the same war file name
 							 newFolder.checkFolderIfExistByWarFileName(toLocation, warFile.getName());
@@ -65,16 +66,15 @@ public class WarFileDirectory {
 
 				Files.copy(fromPath, toPath, StandardCopyOption.REPLACE_EXISTING);
 
-				System.out.println("copied the file");
+				System.out.println(CurrentTimeTracker.GetCurrentTime() +" copied the file");
 				deploy=true;
 			}
 
 		} else {
-			System.out.print("file not exists");
+			System.out.print(CurrentTimeTracker.GetCurrentTime() +" file not exists");
 			deploy=false;
 
 		}
-		 System.out.println("sss");
 
 		return deploy;
 
