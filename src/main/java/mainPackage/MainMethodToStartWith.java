@@ -36,7 +36,6 @@ public class MainMethodToStartWith {
 		
 		
 		if(OthersServers.isEmpty()) {
-			System.out.print("there is no nginx servers chosen");
 		}else {
 		   	new ServersOpertions().addDown_Reload_Deploy_UnDown_For_OthersServers(OthersServers,warFile);
 
