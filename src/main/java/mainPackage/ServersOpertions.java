@@ -23,15 +23,11 @@ public void addDown_Reload_Deploy_UnDown_NginxServers(ArrayList<ServerDetails>se
 	int j=1;
 	
 	
-		    for(int i=0;i<serversData.size();i++) {
-                 System.out.println("starting thread server "+(i+1));
-			     Thread s=new Thread(new Multithread(serversData.get(i),warFile));
-			     s.start();
-		    }
-		    
     for(int i=0;i<serversData.size();i++) {
 	    ServerDetails Server=serversData.get(i);
-		
+		Multithread newThread=new Multithread(Server,warFile);
+		Thread s=new Thread(newThread);
+		s.start();
     	if(Server.ngin_server==true) {
     		
 	     System.out.println();
@@ -43,11 +39,10 @@ public void addDown_Reload_Deploy_UnDown_NginxServers(ArrayList<ServerDetails>se
 		  if(new NginxProcess().reloadForServer(Server)) {
           	System.out.println(CurrentTimeTracker.GetCurrentTime() +" wait for 5 seconds ......");
           	Thread.sleep(5000);
-          	new updateData().incrementDeployServer(Server);
               /*change deploy status */ 
   		    //new updateData().StartDeployOn(Server.serverID);
 
-  		    //Server=getData.getSpecificServer(Server.serverID);
+  		    Server=getData.getSpecificServer(Server.serverID);
 //  		    while(Server.start_deploying==1) {
 //  		    	/*deploy */ 
 //	    		    if(new WarFileDirectory(warFile).copyPasteWarFile(Server.tomcat_path)) {
@@ -90,11 +85,12 @@ public void addDown_Reload_Deploy_UnDown_For_OthersServers(ArrayList<ServerDetai
        	Thread.sleep(5000);
            /*change deploy status */ 
 		    new updateData().StartDeployOn(Server.serverID);
+       	System.out.println(CurrentTimeTracker.GetCurrentTime() +" wait for  seconds ......");
 
+		    Thread.sleep(2000);
 		    Server=getData.getSpecificServer(Server.serverID);
 		    while(Server.start_deploying==1) {
 		    	/*deploy */ 
-		    	System.out.print("start deploying is 1 ");
    		    if(new WarFileDirectory(warFile).copyPasteWarFile(Server.tomcat_path)) {
 	    		    new updateData().StartDeployOff(Server.serverID);
 	    		    Server=getData.getSpecificServer(Server.serverID);
