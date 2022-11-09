@@ -17,27 +17,35 @@ public class MainMethodToStartWith {
        Type type =new TypeToken<ArrayList<ServerDetails>>() {}.getType();
        ArrayList<ServerDetails>serverList=gson.fromJson(ServersArray,type);
        ArrayList<ServerDetails>OthersServers=new ArrayList<>();
-		ServerDetails nginxServer=null;
-        for(ServerDetails server:serverList) {
-        	if(server.ngin_server) {
-        		nginxServer=server;
-        	}
-        	else {
-        		OthersServers.add(server);
-        	}
-        }
-		if(nginxServer!=null) {
-			System.out.print("dfsf");
-	        if(new ServersOpertions().addDown_Reload_Deploy_UnDown_For_NginServer(nginxServer,warFile)) { 
+       ArrayList<ServerDetails>NginxServers=new ArrayList<>();
+
+           for(ServerDetails server:serverList) {
+           	if(server.ngin_server) {
+           		NginxServers.add(server);
+           	}
+           	else {
+           		OthersServers.add(server);
+           	}
+           }
+		if(NginxServers.isEmpty()) {
+			System.out.print("there is no nginx servers chosen");
+		}else {
+			   new ServersOpertions().addDown_Reload_Deploy_UnDown_NginxServers(NginxServers,warFile);
+
+		}
+		
+		
+		if(OthersServers.isEmpty()) {
+			System.out.print("there is no nginx servers chosen");
+		}else {
+		   	new ServersOpertions().addDown_Reload_Deploy_UnDown_For_OthersServers(OthersServers,warFile);
+
+		}
+	   
+
 	        	
-	        	new ServersOpertions().addDown_Reload_Deploy_UnDown_For_OthersServers(nginxServer,OthersServers,warFile);
-	        	
-            }else {
-    		    System.out.println("error in reloading nginx");
-            }
+            
 	
-	    }else {
-		   System.out.println("there's no nginx server");
-	    }
+	    
 	}
 }

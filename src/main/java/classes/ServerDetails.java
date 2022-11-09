@@ -2,7 +2,7 @@ package classes;
 
 public class ServerDetails {
     public int serverID;
-    public boolean start_deploying;
+    public int start_deploying;
     public String tomcat_path;
     public boolean status;
     public int nginx_id;
@@ -14,7 +14,7 @@ public class ServerDetails {
     public  boolean nginx_reload_server;
     public int ngin_min;
     public int nginx_max;
-	public ServerDetails(int serverID,boolean start_deploying, String tomcat_path, boolean status, int nginx_id,
+	public ServerDetails(int serverID,int start_deploying, String tomcat_path, boolean status, int nginx_id,
 			boolean ngin_server, String nginx_path, String nginx_config_path, String nginx_down_query,
 			String nginx_process_name, boolean nginx_reload_server, int ngin_min, int nginx_max) {
 		

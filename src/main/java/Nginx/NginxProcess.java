@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Processes.ComputerProcessesContent;
 import classes.ServerDetails;
+import databaseManagment.CurrentTimeTracker;
 
 public class NginxProcess {
 
@@ -16,17 +17,17 @@ public class NginxProcess {
 /*count how many processes */count=ComputerProcessesContent.countSpeificProcess(server.nginx_process_name);
                      if(count==0) {
 /*start nginx  */              NginxCommandsExecute.startNginx(server.nginx_path,server.nginx_process_name);
-                               System.out.println("can't reload , because nginx service is not working");
+                               System.out.println(CurrentTimeTracker.GetCurrentTime() +" can't reload , because nginx service is not working");
                       }
                       else if(count==server.ngin_min||count==server.nginx_max) {
-                              System.out.println("reload nginx");
+                              System.out.println(CurrentTimeTracker.GetCurrentTime() +" reload nginx");
 /*reload nginx  */                   NginxCommandsExecute.reloadNginx(server.nginx_path,server.nginx_process_name);
 	                             count41Or21=true;
                                 Thread.sleep(5000);
                               break;
 	                     }
                       else {
-                          System.out.println("try to stop nginx");
+                          System.out.println(CurrentTimeTracker.GetCurrentTime() +" try to stop nginx");
 
                     	 NginxCommandsExecute.StopNginx(server.nginx_path,server.nginx_process_name);
 
