@@ -10,8 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-import databaseManagment.CurrentTimeTracker;
-
    public class TxtFileContent {
 
 	static HashMap<String, Integer> visited=new HashMap<>();
@@ -33,14 +31,14 @@ import databaseManagment.CurrentTimeTracker;
 		String content = new String(Files.readAllBytes(path), charset);
 		// check if the the word already added before
 		 if(content.contains(exist_Word+" down ")) {
-		     System.out.println(CurrentTimeTracker.GetCurrentTime() +" error to add 'down',because already added");
+		     System.out.println("error to add 'down',because already added");
  
 		 }else {
 		     // replace the word with itself and the added word
 			 content = content.replaceFirst(exist_Word, exist_Word+" down");
 			 // write the content after replacment in txt file
 		     Files.write(path, content.getBytes(charset));
-             System.out.println(CurrentTimeTracker.GetCurrentTime() +" added 'down' successfully");
+             System.out.println("added 'down' successfully");
          }
 	}
 	
@@ -61,9 +59,9 @@ import databaseManagment.CurrentTimeTracker;
 			 content = content.replaceFirst(serverIP+" down",serverIP);
 			 // write the content after replacment in txt file
 		     Files.write(path, content.getBytes(charset));
-             System.out.println(CurrentTimeTracker.GetCurrentTime() +" removed down from '"+serverIP+"' successfully");
+             System.out.println("removed down from '"+serverIP+"' successfully");
 		 }else {
-		     System.out.println(CurrentTimeTracker.GetCurrentTime() +" no down word on "+serverIP);
+		     System.out.println("no down word on "+serverIP);
 
          }
 	}

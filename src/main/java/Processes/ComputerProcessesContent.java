@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import databaseManagment.CurrentTimeTracker;
-
 
 public class ComputerProcessesContent {
    
@@ -25,10 +23,10 @@ public class ComputerProcessesContent {
 				}
 
 		} catch (IOException e) {
-			System.out.println(CurrentTimeTracker.GetCurrentTime() +" error command.");
+			System.out.println("error command.");
 		}
 		System.out.println();
-		System.out.println(CurrentTimeTracker.GetCurrentTime() +" the number of process "+Processname+" is "+count);
+		System.out.println("the number of process "+Processname+" is "+count);
 		return count;
 }
 

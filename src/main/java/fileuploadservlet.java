@@ -115,22 +115,23 @@ public class fileuploadservlet extends HttpServlet {
 	    	  }
 	      
 	      // ######################
-	      HttpSession session3 = request.getSession();
-	      try {
-			MainMethodToStartWith.deployWarFileToAllServers(file, (String)session3.getAttribute("ServersData") );
-		} catch (SQLException e) {
-			
-			System.out.println("An Error Happened 1 ");
-		} catch (IOException e) {
-			
-			//System.out.println("An Error Happened 2 ");
-			System.out.println(e);
-
-		} catch (InterruptedException e) {
-			
-			System.out.println("An Error Happened 3 ");
-		}
-	   // ######################
+	     
+//	      HttpSession session3 = request.getSession();
+//	      try {
+//			MainMethodToStartWith.deployWarFileToAllServers(file, (String)session3.getAttribute("ServersData") );
+//		} catch (SQLException e) {
+//			
+//			System.out.println("An Error Happened 1 ");
+//		} catch (IOException e) {
+//			
+//			//System.out.println("An Error Happened 2 ");
+//			System.out.println(e);
+//
+//		} catch (InterruptedException e) {
+//			
+//			System.out.println("An Error Happened 3 ");
+//		}
+	   // ########################
 	      
 	      
 	    //## End of the Uploading Part

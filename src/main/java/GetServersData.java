@@ -31,14 +31,14 @@ import javax.servlet.http.HttpSession;
 
 class ServerDetails {
     public int serverID;
-    public int start_deploying;
+    public boolean start_deploying;
     public String tomcat_path;
     public boolean status;
     public String Uploading_URL;
     public String logTracker;
     public String Upload_Path;
     public int nginx_id;
-    public ServerDetails(int serverID, int start_deploying, String tomcat_path, boolean status,
+    public ServerDetails(int serverID, boolean start_deploying, String tomcat_path, boolean status,
 			String uploading_URL, String logTracker, String upload_Path, int nginx_id, boolean ngin_server,
 			String nginx_path, String nginx_config_path, String nginx_down_query, String nginx_process_name,
 			boolean nginx_reload_server, int ngin_min, int nginx_max) {
@@ -80,7 +80,7 @@ class ServerDetails {
 public class GetServersData extends HttpServlet {
 	
 	
-	String sql = "SELECT * FROM TestDB.dbo.server FULL JOIN TestDB.dbo.nginx on TestDB.dbo.server.serverID = TestDB.dbo.nginx.FK_serverID;";
+	String sql = "SELECT * FROM TestDB.dbo.server FULL JOIN TestDB.dbo.nginx on TestDB.dbo.server.serverID = TestDB.dbo.nginx.FK_serverID ;";
 	 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -104,7 +104,7 @@ public class GetServersData extends HttpServlet {
 	        
 	        while (rs.next()) {
 	        	if (rs.getString(5) != null && rs.getString(6)!= null && rs.getString(7)!= null  &&rs.getString(11)!= null &&rs.getString(12) != null && rs.getString(10) != null  ) {
-	        		Data.add(new ServerDetails (rs.getInt(1),rs.getInt(2),
+	        		Data.add(new ServerDetails (rs.getInt(1),rs.getBoolean(2),
 	        				rs.getString(3),rs.getBoolean(4),
 	        				rs.getString(5),rs.getString(6),
 	        				rs.getString(7),rs.getInt(8),
