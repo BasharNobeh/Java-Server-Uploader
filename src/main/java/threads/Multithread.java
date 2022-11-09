@@ -2,11 +2,11 @@ package threads;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import classes.ServerDetails;
 import databaseManagment.getData;
 import databaseManagment.updateData;
-import fileContentMethods.TxtFileContent;
 import fileContentMethods.WarFileDirectory;
 
 public class Multithread implements Runnable {
@@ -18,33 +18,25 @@ public class Multithread implements Runnable {
 	}
 	@Override
 	public void run() {
-         
+    
+		int startDeployValue = 0;
+		try {
+			startDeployValue = getData.GetDevelopmentTableData().startDeployValue;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		while(server.start_deploying<startDeployValue) {
+			
+			
 		
-			 int totalStartDeploy=getData.getStartDeployTotal();
-			 int startDeployValue = getData.GetDevelopmentTableData().startDeployValue;
-		while(totalStartDeploy<startDeployValue) {
+		 
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			totalStartDeploy=getData.getStartDeployTotal();
-
-					try {
-						
-						System.out.println();
-						System.out.println(" inside while ,server "+server.serverID + " SD ="+totalStartDeploy +" SDV ="+startDeployValue);
-
-						System.out.println();
-
-
-						totalStartDeploy=getData.getStartDeployTotal();
-						Thread.sleep(5000);
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				
-
-				
 		   
 
 		
@@ -53,8 +45,6 @@ public class Multithread implements Runnable {
 	}
 		try {
 			new WarFileDirectory(warFile).copyPasteWarFile(server.tomcat_path);
-			new updateData().StartDeployOff(server.serverID);
-			new TxtFileContent(server.nginx_config_path).DeleteTextAfterWordInTxtFile(server.nginx_down_query);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,8 +52,8 @@ public class Multithread implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	   
-
+	    new updateData().StartDeployOff(server.serverID);
+	
 }
     
 	
