@@ -79,6 +79,9 @@ justify-content: center;
 align-items: center;
 
 }
+label{
+text-align: center;
+}
 
 
 
@@ -115,43 +118,43 @@ align-items: center;
 
   <!-- Ajax to Java File Upload Logic -->
   <script>
+  // Getting servers data
   let ServersObjects = eval(<%=request.getAttribute("ServersData")%> )
-  console.log(ServersObjects);
   
-  function checker(){
-	  console.log("I'm here");
-  }
+  var counter = 0 ;
+  var NS_Array = [];
+  // Creating the servers checkboxes along with eventlisteners (OnChange).
   
-  
+  ServersObjects.sort(function(a, b){
+    return a.serverID - b.serverID;
+});
+
   
   
   ServersObjects.forEach(element => {
-	  console.log(element.serverID);
+	  
+	  
 	  var type = "checkbox";
-	  var tag = `<input type="checkbox"`+" name=Server"+element.serverID + " value=Server"+element.serverID+ " id=Server"+element.serverID+"  />" +"Server "+element.serverID 
+	  var tag = "<label>"+"Server"+element.serverID+`<input type="checkbox"`+" name=Server"+element.serverID + " value=Server"+element.serverID+ " id=Server"+element.serverID+"  /></label>" ; 
 	  console.log(tag);
 	  $('#Servers').append(tag);
-	  
+	  //event.currentTarget.checked 
 	  let checkbox = document.getElementById("Server"+element.serverID);
-
 	  checkbox.addEventListener('change', (event) => {
-		  axios.post('http://localhost:8080/UploadFileProject/StartDeployHandler', {
-			    ServerName: 'Fred',
-			    status: 'Flintstone'
-			  })
-			  .then(function (response) {
-			    console.log(response);
-			  })
-			  .catch(function (error) {
-			    console.log(error);
-			  });
-		  
-		  
-	    if (event.currentTarget.checked) {
-	      console.log("Checked " + checkbox.value + "Checked : "+event.currentTarget.checked );
-	    } else {
-	    	console.log("UnChecked " + checkbox.value + "Checked : "+event.currentTarget.checked);
-	    }
+		  if(event.currentTarget.checked ){
+			  NS_Array.push(element.serverID);
+			  console.log(NS_Array);
+			  
+			  counter++;
+		  }else {
+			  NS_Array = NS_Array.filter(function (ServerID) {
+				    return ServerID !== element.serverID;
+				});
+			  console.log(NS_Array);
+			  counter--;
+		  }
+		  console.log(counter);
+	    
 	  })
 
 	  
@@ -159,9 +162,44 @@ align-items: center;
 		 
   
   });
+  
 		 
- 
+ // Will check if isDeployingRun is 0 or 1 
+ // if isDeployingRun == 0 it will call the deyploy function
+ // else it will display an alert with a msg
    function uploadFile() {
+	   
+	   
+	   $.ajax({
+           url:'http://localhost:8080/UploadFileProject/StartDeployHandler',
+           type:'POST',
+           data:{value : counter , NS_Array :NS_Array.toString() },
+           success : function (response) {
+			  console.log(response);
+			  if (response.includes("Try again later")){
+				  alert(response);  
+			  }else {
+				  alert("Deploying !")
+				  Deploy();
+			  }
+ 
+		  }
+         });
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   // Dploying Function : 
+	   function Deploy(){
+		   
+	   
+	   
+	   
+	   
 	   // Getting the file from the input 
 	 let formData = new FormData(); 
 	 formData.append("file", ajaxfile.files[0]);
@@ -179,9 +217,9 @@ align-items: center;
 		      body: formData
 		    });
 		  
-		  
+		  // Loading text .. 
 		  document.getElementById("FileStatus").innerHTML = "Loading ...";
-		  
+		// logs loader function 
 		  setTimeout(function(){
 			  axios.get(element.logTracker)
 			  .then(function (response) {
@@ -205,9 +243,12 @@ align-items: center;
 		});
 	 
 	 
+	 
+	 
+	 
 	   
 	   
-	   
+	   }
 	   
 	
 	  
@@ -220,7 +261,7 @@ align-items: center;
 	
 	   
    }
-  
+   
 
    
 	

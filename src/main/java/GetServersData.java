@@ -80,7 +80,7 @@ class ServerDetails {
 public class GetServersData extends HttpServlet {
 	
 	
-	String sql = "SELECT * FROM TestDB.dbo.server FULL JOIN TestDB.dbo.nginx on TestDB.dbo.server.serverID = TestDB.dbo.nginx.FK_serverID;";
+	String sql = "SELECT * FROM TestDB.dbo.server FULL JOIN TestDB.dbo.nginx on TestDB.dbo.server.serverID = TestDB.dbo.nginx.FK_serverID ;";
 	 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -126,8 +126,8 @@ public class GetServersData extends HttpServlet {
 	        HttpSession session = request.getSession();
 			session.setAttribute("ServersData", jsonData);
 	      
-	        RequestDispatcher rd=request.getRequestDispatcher("MainPage.jsp");
-	        rd.forward(request,response);
+//	        RequestDispatcher rd=request.getRequestDispatcher("MainPage.jsp");
+//	        rd.forward(request,response);
 			
 			
 		}catch(Exception e ) {
