@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import DataBaseConnection.DataBaseConnection;
-import classes.DevelopmentDetails;
+import classes.DeploymentDetails;
 import classes.ServerDetails;
 
 public class getData {
@@ -97,18 +97,47 @@ public class getData {
 		   return null;
 	   }
     }
-    public static DevelopmentDetails GetDevelopmentTableData() throws SQLException{
- 	   PreparedStatement stm=DataBaseConnection.DataBaseConnect().
- 			   prepareStatement("select * from development ");
- 	   ResultSet result=stm.executeQuery();
- 	   if(result.next()) {
- 	return new DevelopmentDetails(
- 		     result.getInt(1),
- 	 	     result.getInt(2));
- 	 	   
- 	   } else {
- 		   return null;
-
-}
+    public static DeploymentDetails GetDevelopmentTableData()  {
+ 	  
+	try {
+		 PreparedStatement stm=DataBaseConnection.DataBaseConnect().
+	 			   prepareStatement("select * from Deployment ");
+	 	   ResultSet result;
+		result = stm.executeQuery();
+		 if(result.next()) {
+			 	return new DeploymentDetails(
+			 		     result.getInt(1),
+			 	 	     result.getInt(2));
+			 	 	   
+			 	   } 
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+ 	  
     }
+    public static int getStartDeployTotal()  {
+    	int count =0;
+  	   PreparedStatement stm;
+	try {
+		stm = DataBaseConnection.DataBaseConnect().
+				   prepareStatement("select start_deploy from server "
+				   		+ "Inner Join nginx on nginx.FK_serverID=server.serverID "
+				   		+ "where nginx.nginx_server=1 and server.start_deploy!=0 ");
+		
+		 ResultSet result=stm.executeQuery();
+	  	   while(result.next()) {
+	  	      count++;
+	  	 	   
+	  	   }
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+  	  
+  	   return count;
+     }
+   
+
 }
