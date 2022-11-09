@@ -1,12 +1,12 @@
 package classes;
 
-public class DevelopmentDetails {
+public class DeploymentDetails {
 
 	public int isDeploy;
 	public int startDeployValue;
 	
 	
-	public DevelopmentDetails(int isDeploy, int startDeployValue) {
+	public DeploymentDetails(int isDeploy, int startDeployValue) {
 		this.isDeploy = isDeploy;
 		this.startDeployValue = startDeployValue;
 	}

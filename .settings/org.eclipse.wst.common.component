@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="Java-Server-Uploader-0.0.1-SNAPSHOT">
+    <wb-module deploy-name="UploadFileProject-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <property name="context-root" value="Java-Server-Uploader"/>
-        <property name="java-output-path" value="/Java-Server-Uploader/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="UploadFileProject"/>
+        <property name="java-output-path" value="/UploadFileProject/WebRoot/WEB-INF/classes"/>
     </wb-module>
 </project-modules>
